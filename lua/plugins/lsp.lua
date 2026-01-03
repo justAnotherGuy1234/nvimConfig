@@ -16,26 +16,40 @@ return {
 	    require("mason").setup()
 	    require("mason-lspconfig").setup({
 		-- List the servers you want explicitly here to auto-install them
-		"lua_ls",
-		"ts_ls",      -- TypeScript/JavaScript
-		"gopls",      -- Go
-		"angularls",  -- Angular
+		ensure_installed = {
+		    "lua_ls",
+		    "ts_ls",      -- TypeScript/JavaScript
+		    "gopls",      -- Go
+		    "angularls",  -- Angular
+		    "jdtls",
+		}
 	    })
 
-	    -- 3. Setup the servers
 	    local lspconfig = require("lspconfig")
-
+	    local capabilities = require("cmp_nvim_lsp").default_capabilities()
 	    -- Setup Lua
-	    lspconfig.lua_ls.setup({})
+	    lspconfig.lua_ls.setup({
+		capabilities = capabilities
+	    })
 
 	    -- Setup TypeScript / JS
-	    lspconfig.ts_ls.setup({})
+	    lspconfig.ts_ls.setup({
+		capabilities = capabilities
+	    })
 
 	    -- Setup Go
-	    lspconfig.gopls.setup({})
+	    lspconfig.gopls.setup({
+		capabilities = capabilities
+	    })
 
 	    -- Setup Angular
-	    lspconfig.angularls.setup({})
+	    lspconfig.angularls.setup({
+		capabilities = capabilities
+	    })
+
+	    lspconfig.jdtls.setup({
+		capabilities = capabilities
+	    })
 	end,
     }
 }

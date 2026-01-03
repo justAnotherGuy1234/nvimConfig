@@ -7,3 +7,6 @@ Plugins  ##
 
 Plugins to add 
 https://www.youtube.com/watch?v=FGVY7gbaoQI
+debugger 
+file tree viewer 
+
