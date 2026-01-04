@@ -1,15 +1,25 @@
 return {
     "nvim-telescope/telescope.nvim",
+    keys = {
+        {
+            "<leader>gl",
+            function() require('telescope.builtin').git_commits() end,
+            desc = "Git Log"
+        },
+        {
+            "<leader>gb",
+            function() require('telescope.builtin').git_branches() end,
+            desc = "Git Branches"
+        },
+        {
+            "<leader>gs",
+            function() require('telescope.builtin').git_status() end,
+            desc = "Git Status"
+        },
+    },
+
     config = function()
-	local builtin = require('telescope.builtin')
-
-	-- Check Git Logs (Commits)
-	vim.keymap.set('n', '<leader>gl', builtin.git_commits, { desc = "Git Log" })
-
-	-- Check Git Branches
-	vim.keymap.set('n', '<leader>gb', builtin.git_branches, { desc = "Git Branches" })
-
-	-- Check Git Status (Changed files)
-	vim.keymap.set('n', '<leader>gs', builtin.git_status, { desc = "Git Status" })
+        require('telescope').setup({
+        })
     end
 }
