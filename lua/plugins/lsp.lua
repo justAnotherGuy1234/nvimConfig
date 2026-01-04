@@ -25,31 +25,71 @@ return {
 		}
 	    })
 
-	    local lspconfig = require("lspconfig")
-	    local capabilities = require("cmp_nvim_lsp").default_capabilities()
-	    -- Setup Lua
-	    lspconfig.lua_ls.setup({
-		capabilities = capabilities
-	    })
+	    vim.api.nvim_create_autocmd('LspAttach', {
+		group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+		callback = function(ev)
+		    local opts = { buffer = ev.buf }
 
-	    -- Setup TypeScript / JS
-	    lspconfig.ts_ls.setup({
-		capabilities = capabilities
-	    })
+		    -- We import telescope builtin functions
+		    local builtin = require('telescope.builtin')
 
-	    -- Setup Go
-	    lspconfig.gopls.setup({
-		capabilities = capabilities
-	    })
+		    -- [TELESCOPE] Go to Definition
+		    -- If there are multiple definitions, it opens a previewer.
+		    vim.keymap.set('n', 'gd', builtin.lsp_definitions, opts)
 
-	    -- Setup Angular
-	    lspconfig.angularls.setup({
-		capabilities = capabilities
-	    })
+		    -- [TELESCOPE] Find References
+		    -- Shows a list of every place the variable is used.
+		    vim.keymap.set('n', 'gr', builtin.lsp_references, opts)
 
-	    lspconfig.jdtls.setup({
-		capabilities = capabilities
-	    })
-	end,
-    }
+		    -- [TELESCOPE] Go to Implementation
+		    -- Useful for interfaces in Go/TS.
+		    vim.keymap.set('n', 'gi', builtin.lsp_implementations, opts)
+
+		    -- [TELESCOPE] Type Definition
+		    vim.keymap.set('n', 'gt', builtin.lsp_type_definitions, opts)
+
+		    -- [STANDARD] Documentation (Hover)
+		    -- Telescope isn't needed here; a simple popup is faster.
+		    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+
+		    -- [STANDARD] Rename Symbol
+		    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+
+		    -- [STANDARD] Code Action
+		    -- (You can use 'builtin.lsp_code_actions' if you prefer Telescope for this too)
+		    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
+
+		    -- show errors with telescope
+		    vim.keymap.set('n', '<leader>fe', function()
+			builtin.diagnostics({ bufnr = 0 })
+		    end, opts)
+	    end,
+	})
+	local lspconfig = require("lspconfig")
+	local capabilities = require("cmp_nvim_lsp").default_capabilities()
+	-- Setup Lua
+	lspconfig.lua_ls.setup({
+	    capabilities = capabilities
+	})
+
+	-- Setup TypeScript / JS
+	lspconfig.ts_ls.setup({
+	    capabilities = capabilities
+	})
+
+	-- Setup Go
+	lspconfig.gopls.setup({
+	    capabilities = capabilities
+	})
+
+	-- Setup Angular
+	lspconfig.angularls.setup({
+	    capabilities = capabilities
+	})
+
+	lspconfig.jdtls.setup({
+	    capabilities = capabilities
+	})
+    end,
+}
 }

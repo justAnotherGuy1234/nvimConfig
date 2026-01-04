@@ -9,4 +9,9 @@ Plugins to add
 https://www.youtube.com/watch?v=FGVY7gbaoQI
 debugger 
 file tree viewer 
+git tree 
+git branches  
+git logs
+git conflicts
+icon indicattor that there are changes made to current file and pending changes that need to save in other files as well like in vs code 
 
