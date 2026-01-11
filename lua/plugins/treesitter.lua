@@ -40,7 +40,6 @@ return {
             })
         end,
     },
-    -- NOTE: js,ts,jsx,tsx Auto Close Tags
     {
         "windwp/nvim-ts-autotag",
         enabled = true,

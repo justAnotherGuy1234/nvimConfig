@@ -24,7 +24,6 @@ return {
 		    "jdtls",
 		}
 	    })
-
 	    vim.api.nvim_create_autocmd('LspAttach', {
 		group = vim.api.nvim_create_augroup('UserLspConfig', {}),
 		callback = function(ev)
@@ -32,6 +31,10 @@ return {
 
 		    -- We import telescope builtin functions
 		    local builtin = require('telescope.builtin')
+
+		    vim.keymap.set('n', '<leader>d', function()
+			vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
+		    end, opts)
 
 		    -- [TELESCOPE] Go to Definition
 		    -- If there are multiple definitions, it opens a previewer.
@@ -63,33 +66,39 @@ return {
 		    vim.keymap.set('n', '<leader>fe', function()
 			builtin.diagnostics({ bufnr = 0 })
 		    end, opts)
-	    end,
-	})
-	local lspconfig = require("lspconfig")
-	local capabilities = require("cmp_nvim_lsp").default_capabilities()
-	-- Setup Lua
-	lspconfig.lua_ls.setup({
-	    capabilities = capabilities
-	})
+		end,
+	    })
+	    vim.diagnostic.config({
+		float = {
+		    border = "rounded",
+		    source = true
+		},
+	    })
+	    local lspconfig = require("lspconfig")
+	    local capabilities = require("cmp_nvim_lsp").default_capabilities()
+	    -- Setup Lua
+	    lspconfig.lua_ls.setup({
+		capabilities = capabilities
+	    })
 
-	-- Setup TypeScript / JS
-	lspconfig.ts_ls.setup({
-	    capabilities = capabilities
-	})
+	    -- Setup TypeScript / JS
+	    lspconfig.ts_ls.setup({
+		capabilities = capabilities
+	    })
 
-	-- Setup Go
-	lspconfig.gopls.setup({
-	    capabilities = capabilities
-	})
+	    -- Setup Go
+	    lspconfig.gopls.setup({
+		capabilities = capabilities
+	    })
 
-	-- Setup Angular
-	lspconfig.angularls.setup({
-	    capabilities = capabilities
-	})
+	    -- Setup Angular
+	    lspconfig.angularls.setup({
+		capabilities = capabilities
+	    })
 
-	lspconfig.jdtls.setup({
-	    capabilities = capabilities
-	})
-    end,
-}
+	    lspconfig.jdtls.setup({
+		capabilities = capabilities
+	    })
+	end,
+    }
 }
