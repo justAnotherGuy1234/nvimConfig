@@ -22,6 +22,7 @@ return {
 		    "gopls",      -- Go
 		    "angularls",  -- Angular
 		    "jdtls",
+		    "rust_analyzer"
 		}
 	    })
 	    vim.api.nvim_create_autocmd('LspAttach', {
@@ -99,6 +100,11 @@ return {
 	    lspconfig.jdtls.setup({
 		capabilities = capabilities
 	    })
+
+	    lspconfig.rust_analyzer.setup({
+		capabilities = capabilities
+	    })
+
 	end,
     }
 }
