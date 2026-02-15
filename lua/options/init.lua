@@ -4,6 +4,7 @@ opt.relativenumber = true
 opt.number = true
 opt.shiftwidth = 4
 
+opt.clipboard = "unnamedplus"
 
 vim.diagnostic.config({
   virtual_text = true,
